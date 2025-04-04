@@ -17,12 +17,18 @@ const App = () => {
 
   return (
     <div className="flex flex-col p-4 gap-6">
-    {selectLocation && <Forecast forecast={selectLocation} />}
-      {searchHistory?.length > 0 && <SearchHistory data={searchHistory} selectLocation={selectLocation} setSelectLocation={setSelectLocation} />}
+      {searchHistory?.length > 0 && (
+        <SearchHistory
+          data={searchHistory}
+          selectLocation={selectLocation as LocationDataType}
+          setSelectLocation={setSelectLocation}
+        />
+      )}
       <SearchCiti
         setSelectLocation={saveLocation}
         searchHistory={searchHistory}
       />
+      {selectLocation && <Forecast forecast={selectLocation} />}
     </div>
   );
 };

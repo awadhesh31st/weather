@@ -3,10 +3,14 @@ import { FC } from "react";
 type SearchHistoryType = {
   data: LocationDataType[];
   setSelectLocation: (location: LocationDataType) => void;
-	selectLocation: LocationDataType | null;
+  selectLocation: LocationDataType;
 };
 
-const SearchHistory: FC<SearchHistoryType> = ({ data, setSelectLocation, selectLocation }) => {
+const SearchHistory: FC<SearchHistoryType> = ({
+  data,
+  setSelectLocation,
+  selectLocation,
+}) => {
   return (
     <div className="flex flex-col gap-1">
       <span className="font-semibold text-black text-base">Search history</span>
@@ -15,8 +19,14 @@ const SearchHistory: FC<SearchHistoryType> = ({ data, setSelectLocation, selectL
           return (
             <span
               key={`searchHistory-${location.id}`}
-              className={`flex  px-4 py-1 rounded-md border border-gray-200 cursor-pointer  hover:text-white ${location.id === selectLocation?.id ? 'bg-orange-500' : 'hover:bg-green-500 bg-green-400'}`}
-              onClick={() => setSelectLocation(location)}
+              className={`flex  px-4 py-1 rounded-md border border-gray-200   ${
+                location.id === selectLocation?.id
+                  ? "bg-orange-500"
+                  : "cursor-pointer  hover:bg-green-800 bg-green-400 hover:text-white"
+              }`}
+              onClick={() =>
+                selectLocation.id !== location.id && setSelectLocation(location)
+              }
             >
               {location.country} - {location.name}
             </span>

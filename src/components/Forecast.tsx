@@ -41,7 +41,7 @@ const Forecast: FC<ForecastType> = ({ forecast }) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <span className="font-semibold text-base flex">Forecast</span>
+      <span className="font-semibold text-base flex">Forecast: {`${forecast?.country} - ${forecast?.name}`}</span>
       {isLoading ? (
         <span>Loading forecast ...</span>
       ) : (
