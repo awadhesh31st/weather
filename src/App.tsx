@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import SearchCiti from "./components/SearchCiti";
+import SearchHistory from "./components/SearchHistory";
+import Forecast from "./components/Forecast";
 
-function App() {
+const App = () => {
+  const [selectLocation, setSelectLocation] = useState<LocationDataType | null>(null);
+  const [searchHistory, setSearchHistory] = useState<LocationDataType[]>([]);
+
+  const saveLocation = (location: LocationDataType) => {
+    setSelectLocation(location);
+    setSearchHistory((oldSearchLocation) => [
+      ...oldSearchLocation,
+      ...[location],
+    ]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col p-4 gap-6">
+    {selectLocation && <Forecast forecast={selectLocation} />}
+      {searchHistory?.length > 0 && <SearchHistory data={searchHistory} selectLocation={selectLocation} setSelectLocation={setSelectLocation} />}
+      <SearchCiti
+        setSelectLocation={saveLocation}
+        searchHistory={searchHistory}
+      />
     </div>
   );
-}
+};
 
 export default App;
